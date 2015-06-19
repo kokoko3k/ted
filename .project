@@ -1,0 +1,12 @@
+# Gambas Project File 3.0
+# Compiled with Gambas 3.7.1
+Title=ted
+Startup=FMain
+Version=0.0.3
+Component=gb.image
+Component=gb.gtk
+Component=gb.form
+Component=gb.settings
+TabSize=2
+Language=it
+Packager=1
