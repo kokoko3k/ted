@@ -1,20 +1,19 @@
 ' Gambas class file
 
-Public config As Settings
 Public cFile As String
 Public DocChanged As Boolean = False
 
 Public Sub _new()
   FMain.caption = Application.name
   If Application.Args.count > 1 Then do_load(Application.Args[1])
-  config = New Settings
 End
 
 Public Sub Form_Open()
-  Me.Top = config["Window/Top", Me.Top]
-  Me.Left = config["Window/Left", Me.Left]
-  Me.Height = config["Window/Height", Me.Height]
-  Me.Width = config["Window/Width", Me.Width]
+  Me.Top = settings["Window/Top", Me.Top]
+  Me.Left = settings["Window/Left", Me.Left]
+  Me.Height = settings["Window/Height", Me.Height]
+  Me.Width = settings["Window/Width", Me.Width]
+  TextArea1.Font.size = settings["textarea/fontsize", TextArea1.Font.size]
 End
 
 
@@ -107,6 +106,7 @@ Public Sub save_settings()
   Settings["Window/Left"] = Me.Left
   Settings["Window/Height"] = Me.Height
   Settings["Window/Width"] = Me.Width
+  settings["textarea/fontsize"] = TextArea1.Font.size
 End
 
 
@@ -198,4 +198,12 @@ End
 
 Public Sub MenuSelectAll_Click()
   TextArea1.SelectAll
+End
+
+Public Sub MenuBig_Click()
+  Try TextArea1.Font.size += 1
+End
+
+Public Sub MenuLittle_Click()
+  Try TextArea1.Font.size -= 1
 End

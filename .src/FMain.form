@@ -11,6 +11,7 @@
     { MenuLoad Menu
       Text = ("Open")
       Picture = Picture["icon:/small/open"]
+      Shortcut = "Ctrl+O"
     }
     { MenuSave Menu
       Text = ("Save")
@@ -57,12 +58,31 @@
       Picture = Picture["icon:/small/paste"]
       Shortcut = "Ctrl+V"
     }
-    { Menu5 Menu
-    }
     { MenuSelectAll Menu
       Text = ("Select All")
       Picture = Picture["icon:/small/select-all"]
       Shortcut = "Ctrl+A"
+    }
+  }
+  { MenuView Menu
+    Text = ("View")
+    { MenuBig Menu
+      Text = ("Enlarge Font")
+      Picture = Picture["icon:/small/zoom-in"]
+      Shortcut = "Ctrl+B"
+    }
+    { MenuLittle Menu
+      Text = ("Shrink Font")
+      Picture = Picture["icon:/small/zoom-out"]
+      Shortcut = "Ctrl+L"
+    }
+    { Menu5 Menu
+    }
+    { MenuWrap Menu
+      Text = ("Wrap text")
+      Picture = Picture["icon:/small/view-detail"]
+      Toggle = True
+      Shortcut = "Ctrl+W"
     }
   }
   { MenuTools Menu
@@ -72,12 +92,6 @@
       Picture = Picture["icon:/small/find"]
       Toggle = True
       Shortcut = "Ctrl+F"
-    }
-    { MenuWrap Menu
-      Text = ("Wrap text")
-      Picture = Picture["icon:/small/view-detail"]
-      Toggle = True
-      Shortcut = "Ctrl+W"
     }
   }
   { TextArea1 TextArea
