@@ -96,6 +96,7 @@
   }
   { TextArea1 TextArea
     MoveScaled(1,2,66,33)
+    Font = Font["Monospace"]
     Expand = True
   }
   { HBox1 HBox
