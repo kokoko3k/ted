@@ -1,0 +1,129 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,69,50)
+  Icon = Picture["icon:/small/text"]
+  Arrangement = Arrange.Vertical
+  Spacing = True
+  Margin = True
+  { MenuFile Menu
+    Text = ("File")
+    { MenuLoad Menu
+      Text = ("Open")
+      Picture = Picture["icon:/small/open"]
+    }
+    { MenuSave Menu
+      Text = ("Save")
+      Picture = Picture["icon:/small/save"]
+      Shortcut = "Ctrl+S"
+    }
+    { MenuSaveAs Menu
+      Text = ("Save as") & "..."
+      Picture = Picture["icon:/small/save-as"]
+    }
+    { Menu1 Menu
+    }
+    { MenuQuit Menu
+      Text = ("Quit")
+    }
+  }
+  { MenuEdit Menu
+    Text = ("Edit")
+    { MenuUndo Menu
+      Text = ("Undo")
+      Picture = Picture["icon:/small/undo"]
+      Shortcut = "Ctrl+Z"
+    }
+    { MenuRedo Menu
+      Text = ("Redo")
+      Picture = Picture["icon:/small/redo"]
+      Shortcut = "Ctrl+Shift+Z"
+    }
+    { Menu2 Menu
+    }
+    { MenuCut Menu
+      Text = ("Cut")
+      Picture = Picture["icon:/small/cut"]
+      Shortcut = "Ctrl+X"
+    }
+    { MenuCopy Menu
+      Text = ("Copy")
+      Picture = Picture["icon:/small/copy"]
+      Shortcut = "Ctrl+C"
+    }
+    { MenuPaste Menu
+      Text = ("Paste")
+      Picture = Picture["icon:/small/paste"]
+      Shortcut = "Ctrl+V"
+    }
+    { Menu5 Menu
+    }
+    { MenuSelectAll Menu
+      Text = ("Select All")
+      Picture = Picture["icon:/small/select-all"]
+      Shortcut = "Ctrl+A"
+    }
+  }
+  { MenuTools Menu
+    Text = ("Tools")
+    { MenuFind Menu
+      Text = ("Find/Replace")
+      Picture = Picture["icon:/small/find"]
+      Toggle = True
+      Shortcut = "Ctrl+F"
+    }
+    { MenuWrap Menu
+      Text = ("Wrap text")
+      Picture = Picture["icon:/small/view-detail"]
+      Toggle = True
+      Shortcut = "Ctrl+W"
+    }
+  }
+  { TextArea1 TextArea
+    MoveScaled(1,2,66,33)
+    Expand = True
+  }
+  { HBox1 HBox
+    MoveScaled(0,36,59,4)
+    Visible = False
+    AutoResize = True
+    Spacing = True
+    { Label1 Label
+      MoveScaled(1,0,8,3)
+      Text = ("Find:")
+      Alignment = Align.Right
+    }
+    { FindBox TextBox
+      MoveScaled(14,0,15,4)
+      Expand = True
+    }
+    { Button1 Button
+      MoveScaled(32,0,13,4)
+      Text = ("Next")
+      Picture = Picture["icon:/small/down"]
+    }
+  }
+  { HBox2 HBox
+    MoveScaled(1,40,59,4)
+    Visible = False
+    AutoResize = True
+    Spacing = True
+    { Label2 Label
+      MoveScaled(1,1,8,3)
+      Text = ("Replace:")
+      Alignment = Align.Right
+    }
+    { ReplaceBox TextBox
+      MoveScaled(13,0,15,4)
+      Expand = True
+    }
+    { Button3 Button
+      MoveScaled(31,0,13,4)
+      Text = ("Replace")
+    }
+    { Button4 Button
+      MoveScaled(45,0,13,4)
+      Text = ("Replace All")
+    }
+  }
+}

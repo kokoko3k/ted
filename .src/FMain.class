@@ -1,0 +1,195 @@
+' Gambas class file
+
+Public config As Settings
+Public cFile As String
+Public DocChanged As Boolean = False
+
+Public Sub _new()
+  FMain.caption = Application.name
+  If Application.Args.count > 1 Then do_load(Application.Args[1])
+  config = New Settings
+End
+
+Public Sub Form_Open()
+  Me.Top = config["Window/Top", Me.Top]
+  Me.Left = config["Window/Left", Me.Left]
+  Me.Height = config["Window/Height", Me.Height]
+  Me.Width = config["Window/Width", Me.Width]
+End
+
+
+Public Sub do_load(f As String)
+  Try TextArea1.text = File.Load(f)
+  If Error Then 
+    Message.Error(("Could not open file"))
+    Return
+  Endif
+  cFile = f
+  Dialog.path = cFile
+  FMain.caption = File.Name(cfile) & " - " & Application.name
+  TextArea1.pos = 0
+  DocChanged = False
+End
+
+Public Sub do_save()
+If cFile <> "" Then 
+  Try File.Save(cFile, TextArea1.text)
+    If Error Then 
+      Message.Error(("Could not save file"))
+      Return
+    Endif
+      FMain.caption = File.Name(cfile) & " - " & Application.name
+      DocChanged = False
+      Else
+    do_saveas()
+  Endif
+End
+
+Public Sub do_saveas()
+  If Not Dialog.SaveFile() Then
+    Try File.Save(Dialog.path, TextArea1.text)
+    If Error Then 
+      Message.Error(("Could not save file"))
+      Return
+    Endif
+    cFile = Dialog.path
+    FMain.caption = File.Name(cfile) & " - " & Application.name
+    DocChanged = False
+  Endif
+End
+
+
+Public Sub MenuLoad_Click()
+  If Not Dialog.OpenFile() Then do_load(Dialog.Path)
+End
+
+Public Sub MenuSave_Click()
+  do_save()
+End
+
+
+Public Sub MenuSaveAs_Click()
+  do_saveas()
+End
+
+Public Sub MenuQuit_Click()
+  do_quit()
+End
+
+Public Sub Form_Close()
+  If DocChanged Then 
+    Stop Event
+    do_quit()
+  Endif
+End
+
+Public Sub do_quit()
+  If DocChanged Then
+    Select Message.Question(("Document has been changed"), ("Save"), ("Discard"), ("Cancel"))
+      Case 1
+        Stop
+        do_save()
+        Goto ok_close
+      Case 2
+        Goto ok_close
+      Case 3
+        Return
+      Case Else
+        Return
+    End Select
+  Endif
+  ok_close:
+  Settings["Window/Top"] = Me.Top
+  Settings["Window/Left"] = Me.Left
+  Settings["Window/Height"] = Me.Height
+  Settings["Window/Width"] = Me.Width
+End
+
+Public Sub MenuWrap_Click()
+  TextArea1.wrap = MenuWrap.Checked
+End
+
+Public Sub MenuFind_Click()
+  HBox1.visible = MenuFind.Checked
+  HBox2.visible = MenuFind.Checked
+  If HBox1.visible Then
+    FindBox.SetFocus()
+      Else
+    TextArea1.SetFocus()
+  Endif
+End
+
+Public Function do_search() As Boolean
+  Dim fpos As Integer
+
+  If TextArea1.selected Then TextArea1.pos = TextArea1.pos + TextArea1.Selection.Length + 1
+
+  fpos = InStr(TextArea1.text, FindBox.text, TextArea1.pos)
+  If fpos <= 0 Then Return False
+
+  Try TextArea1.pos = fpos
+  If Error Then Return False
+
+  TextArea1.Select(TextArea1.pos - 1, Len(FindBox.text))
+  TextArea1.EnsureVisible()
+  Return True
+End
+
+
+Public Sub Button1_Click()
+  do_search()
+End
+
+Public Sub Button3_Click()
+  do_replace()
+End
+
+Public Sub do_replace()
+  If TextArea1.selected Then 
+    TextArea1.Selection.Text = Replace(TextArea1.Selection.Text, FindBox.text, ReplaceBox.text)
+  Endif
+End
+
+
+Public Sub FindBox_Activate()
+  do_search()
+End
+
+Public Sub TextArea1_Change()
+  DocChanged = True
+  FMain.caption = File.Name(cfile) & " [" & ("modified") & "]" & " - " & Application.name 
+End
+
+Public Sub Button4_Click()
+  Dim i As Integer = 0
+  TextArea1.pos = 0
+  While do_search()
+    do_replace()
+    i += 1
+  Wend
+  Message.Info(("Replacements made: ") & i)
+End
+
+Public Sub MenuUndo_Click()
+  TextArea1.Undo
+End
+
+Public Sub MenuRedo_Click()
+  TextArea1.redo
+End
+
+Public Sub MenuCut_Click()
+  TextArea1.cut
+End
+
+Public Sub MenuCopy_Click()
+  TextArea1.Copy
+End
+
+Public Sub MenuPaste_Click()
+  TextArea1.paste
+End
+
+Public Sub MenuSelectAll_Click()
+  TextArea1.SelectAll
+End
