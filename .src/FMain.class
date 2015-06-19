@@ -77,10 +77,8 @@ Public Sub MenuQuit_Click()
 End
 
 Public Sub Form_Close()
-  If DocChanged Then 
-    Stop Event
-    do_quit()
-  Endif
+  If DocChanged Then Stop Event
+  do_quit()
 End
 
 Public Sub do_quit()
