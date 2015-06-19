@@ -25,6 +25,7 @@
     }
     { MenuQuit Menu
       Text = ("Quit")
+      Picture = Picture["icon:/small/quit"]
     }
   }
   { MenuEdit Menu
