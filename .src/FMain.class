@@ -76,19 +76,15 @@ Public Sub MenuQuit_Click()
 End
 
 Public Sub Form_Close()
+  save_settings()
   If DocChanged Then 
     Stop Event
     Select Message.Question(("Document has been changed"), ("Save"), ("Discard"), ("Cancel"))
- 
       Case 1
         do_save()
-        If Not DocChanged Then 
-          save_settings()
-          Quit
-        Endif
+        If Not DocChanged Then Quit
  
       Case 2
-        save_settings()
         Quit
 
       Case 3
