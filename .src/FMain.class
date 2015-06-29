@@ -13,6 +13,7 @@ Public Sub Form_Open()
   Me.Left = settings["Window/Left", Me.Left]
   Me.Height = settings["Window/Height", Me.Height]
   Me.Width = settings["Window/Width", Me.Width]
+  fmain.Maximized = settings["Window/Maximized", fmain.Maximized]
   TextArea1.Font.size = settings["textarea/fontsize", TextArea1.Font.size]
 End
 
@@ -102,6 +103,7 @@ Public Sub save_settings()
   Settings["Window/Left"] = Me.Left
   Settings["Window/Height"] = Me.Height
   Settings["Window/Width"] = Me.Width
+  Settings["Window/Maximized"] = fmain.Maximized
   settings["textarea/fontsize"] = TextArea1.Font.size
 End
 
@@ -139,7 +141,11 @@ End
 
 
 Public Sub Button1_Click()
-  do_search()
+  If Not do_search() Then 
+    Message.Info(("Search from the beginning"))
+    TextArea1.pos = 0
+    do_search()
+  Endif
 End
 
 Public Sub Button3_Click()
@@ -154,7 +160,11 @@ End
 
 
 Public Sub FindBox_Activate()
-  do_search()
+  If Not do_search() Then 
+    Message.Info(("Search from the beginning"))
+    TextArea1.pos = 0
+    do_search()
+  Endif
 End
 
 Public Sub TextArea1_Change()
@@ -203,3 +213,4 @@ End
 Public Sub MenuLittle_Click()
   Try TextArea1.Font.size -= 1
 End
+
