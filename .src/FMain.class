@@ -19,11 +19,21 @@ End
 
 
 Public Sub do_load(f As String)
-  Try TextArea1.text = File.Load(f)
+  Dim t As String
+  Dim i As String
+  Try t = File.Load(f)
   If Error Then 
     Message.Error(("Could not open file"))
     Return
   Endif
+  t = DConv(t)
+  'For Each i In Split(t, "abcdefchigklmnopqrst\n\rABCDEFGHIJKLMNOPQRSSTUVXYZ1234567890", "", False, True)
+  For Each i In Split(t, "a", "", False, True)
+    'Debug Timer()
+    Debug Len(TextArea1.text)
+    TextArea1.Insert(i)
+  Next 'i
+  
   cFile = f
   Dialog.path = cFile
   FMain.caption = File.Name(cfile) & " - " & Application.name
@@ -128,7 +138,7 @@ Public Function do_search() As Boolean
 
   If TextArea1.selected Then TextArea1.pos = TextArea1.pos + TextArea1.Selection.Length + 1
 
-  fpos = InStr(TextArea1.text, FindBox.text, TextArea1.pos)
+  fpos = InStr(TextArea1.text, FindBox.text, TextArea1.pos, gb.IgnoreCase)
   If fpos <= 0 Then Return False
 
   Try TextArea1.pos = fpos
